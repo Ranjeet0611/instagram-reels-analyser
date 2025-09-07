@@ -1,6 +1,6 @@
 import instaloader
 from rich.console import Console
-import console_styles
+from src.instagram_reel_analyser import console_styles
 
 insta_loader = instaloader.Instaloader()
 console = Console(force_terminal=True)
