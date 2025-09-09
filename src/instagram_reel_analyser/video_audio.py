@@ -11,7 +11,7 @@ def get_mp4_file_in_current_dir():
                 return os.path.abspath(os.path.join(dirpath, file))
     return None
 
-def convert_audio_to_video():
+def convert_mp4_to_mp3():
     audio_file = get_mp4_file_in_current_dir()
     if audio_file is not None:
         video = VideoFileClip(audio_file)
