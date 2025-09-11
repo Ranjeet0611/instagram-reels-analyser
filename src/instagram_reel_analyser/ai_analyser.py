@@ -1,18 +1,18 @@
 import requests
 import json
 import os
-
+import constants
 
 def analyse_transcript(transcript):
-    ollama_url = "http://localhost:11434/api/generate"
+    ollama_url = constants.OLLAMA_URL
     base_dir = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-    prompt_path = os.path.join(base_dir, "prompt.txt")
+    prompt_path = os.path.join(base_dir, constants.PROMPT_FILE_NAME)
     with open(prompt_path, "r", encoding="utf-8") as file:
         prompt_template = file.read()
-    prompt = prompt_template.replace("{{REEL_TEXT}}", transcript)
+    prompt = prompt_template.replace(constants.PROMPT_TEXT_PLACEHOLDER, transcript)
     response = requests.post(ollama_url,
                   json={
-                      "model": "llama3.2",
+                      "model": constants.MODEL_NAME,
                       "prompt": prompt,
                       "stream": True
                   },
