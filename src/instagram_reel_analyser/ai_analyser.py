@@ -27,9 +27,10 @@ def analyse_transcript(transcript):
         if line:
             data = json.loads(line)
             if "response" in data:
-                print(data["response"], end="", flush=True)
                 ai_response += data["response"]
-    with open(prompt_path, "w", encoding="utf-8") as file:
-        file.name("ai_analysis.txt")
+                print(data["response"], end="", flush=True)
+    analysis_path = os.path.join(base_dir, "ai_analysis.txt")
+    with open(analysis_path, "w", encoding="utf-8") as file:
         file.write(ai_response)
+
 
