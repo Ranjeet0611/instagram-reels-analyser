@@ -1,7 +1,11 @@
+from os import write
+
 import requests
 import json
 import os
-import constants
+
+from src.instagram_reel_analyser import constants
+
 
 def analyse_transcript(transcript):
     ollama_url = constants.OLLAMA_URL
@@ -18,8 +22,14 @@ def analyse_transcript(transcript):
                   },
                   stream=True
                   )
+    ai_response = ""
     for line in response.iter_lines():
         if line:
             data = json.loads(line)
             if "response" in data:
                 print(data["response"], end="", flush=True)
+                ai_response += data["response"]
+    with open(prompt_path, "w", encoding="utf-8") as file:
+        file.name("ai_analysis.txt")
+        file.write(ai_response)
+
