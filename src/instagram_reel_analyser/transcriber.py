@@ -28,5 +28,15 @@ def transcribe_audio(audio_output_file_path):
             futures.append(executor.submit(transcribe, audio_file))
         for future in concurrent.futures.as_completed(futures):
             transcribed_text.append(future.result())
+    save_transcribed_texts(transcribed_text, "transcribed_texts.txt")
     console.print("[SUCCESS] All audio files transcribed.", style=console_styles.console_green_styles)
     return transcribed_text
+
+def save_transcribed_texts(transcribed_texts, file_path):
+    try:
+        with open(file_path, "w", encoding="utf-8") as f:
+            for text in transcribed_texts:
+                f.write(text + "\n")
+        console.print(f"[SUCCESS] Transcribed texts saved to {file_path}", style=console_styles.console_green_styles)
+    except Exception as e:
+        console.print(f"[ERROR] Failed to save transcribed texts: {e}", style=console_styles.console_red_styles)
